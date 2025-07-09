@@ -1,0 +1,10 @@
+<svg width="40" height="30" viewBox="0 0 40 30" xmlns="http://www.w3.org/2000/svg" style="--cream: #faf7f3; --peach: #d9a299;">
+  <g transform="scale(-1, 1) translate(-40, 0)">
+    <!-- Top line (cream) -->
+    <rect x="0" y="0" width="30" height="5" rx="2.5" fill="var(--cream)"></rect>
+    <!-- Middle line (peach) -->
+    <rect x="0" y="12" width="35" height="5" rx="2.5" fill="var(--peach)"></rect>
+    <!-- Bottom line (cream) -->
+    <rect x="0" y="24" width="25" height="5" rx="2.5" fill="var(--cream)"></rect>
+  </g>
+</svg>
