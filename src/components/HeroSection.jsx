@@ -78,7 +78,7 @@ export default function HeroSection() {
       {/* Menu Icon */}
       <button
         onClick={() => setMenuOpen(!menuOpen)}
-        className="absolute top-5 right-5 z-30 sm:top-6 sm:right-6"
+        className="absolute top-5 right-5 z-50 sm:top-6 sm:right-6"
         aria-label="Toggle Menu"
       >
         <svg
