@@ -88,6 +88,39 @@ export default function RootLayout({ children }) {
           sizes="16x16"
           href="/images/icons/favicon-16x16.png"
         />
+
+        {/* --- Social Media Meta Preview --- */}
+        <meta
+          name="description"
+          content="Discover the professional portfolio of Shekhar Rao — showcasing modeling, videos, and collaborations."
+        />
+
+        {/* Facebook / Open Graph */}
+        <meta property="og:url" content="https://shekharrao.vercel.app" />
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content="Shekhar Rao | Portfolio" />
+        <meta
+          property="og:description"
+          content="Discover the professional portfolio of Shekhar Rao — showcasing modeling, videos, and collaborations."
+        />
+        <meta
+          property="og:image"
+          content="https://shekharrao.vercel.app/images/april18030.jpg"
+        />
+
+        {/* Twitter */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta property="twitter:domain" content="shekharrao.vercel.app" />
+        <meta property="twitter:url" content="https://shekharrao.vercel.app" />
+        <meta name="twitter:title" content="Shekhar Rao | Portfolio" />
+        <meta
+          name="twitter:description"
+          content="Discover the professional portfolio of Shekhar Rao — showcasing modeling, videos, and collaborations."
+        />
+        <meta
+          name="twitter:image"
+          content="https://shekharrao.vercel.app/images/april18030.jpg"
+        />
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-cream`}
