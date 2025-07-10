@@ -30,7 +30,7 @@ export const metadata = {
     type: "website",
     images: [
       {
-        url: "/images/april18030.jpg",
+        url: "https://shekharrao.vercel.app/images/april18030.jpg",
         width: 1200,
         height: 630,
         alt: "Shekhar Rao promotional image",
