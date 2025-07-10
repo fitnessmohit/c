@@ -12,8 +12,13 @@ export default function Footer() {
       <div className="max-w-4xl mx-auto">
         {/* Name and Title */}
         <h3 className="text-2xl font-bold text-gray-800 mb-2">Shekhar Rao</h3>
-        <p className="text-gray-500 mb-6 text-lg">
-          Explore our stunning collection
+        <p className="text-gray-500 mb-6 text-lg tracking-wide text-center">
+          <a
+            href="mailto:shekharwork80@gmail.com"
+            className="hover:underline hover:text-peach transition-colors"
+          >
+            shekharwork80@gmail.com
+          </a>
         </p>
 
         {/* Social Links */}

@@ -26,7 +26,7 @@ export const metadata = {
     title: "Shekhar Rao | Portfolio",
     description:
       "Discover the professional portfolio of Shekhar Rao — showcasing modeling, videos, and collaborations.",
-    url: "https://shekharrao.com",
+    url: "https://shekharrao.vercel.app",
     type: "website",
     images: [
       {
