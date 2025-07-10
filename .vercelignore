@@ -1,19 +1,35 @@
-# Ignore system files
+# System files
+
 .DS_Store
 Thumbs.db
+\*.swp
 
-# Ignore local builds
-.next
-out
+# Node
 
-# Ignore test and dev-only files
-*.log
-.vscode
-*.test.js
-*.test.ts
-__tests__/
-__mocks__/
+node_modules/
+build/
 
-# Ignore local env config
-.env.local
-.env.development
+# Next.js
+
+.next/
+out/
+
+# Vercel
+
+.vercel/
+
+# Logs and editors
+
+\*.log
+.vscode/
+
+# Tests
+
+_.test.js
+_.test.ts
+**tests**/
+**mocks**/
+
+# Env
+
+.env\*
