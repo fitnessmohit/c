@@ -27,3 +27,8 @@
 .bg-coffee {
   background-color: var(--coffee);
 }
+
+:focus:not(:focus-visible) {
+  outline: none;
+  box-shadow: none;
+}

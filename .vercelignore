@@ -1,0 +1,19 @@
+# Ignore system files
+.DS_Store
+Thumbs.db
+
+# Ignore local builds
+.next
+out
+
+# Ignore test and dev-only files
+*.log
+.vscode
+*.test.js
+*.test.ts
+__tests__/
+__mocks__/
+
+# Ignore local env config
+.env.local
+.env.development

@@ -10,6 +10,7 @@ export default function Lightbox({ images = [], index = 0, onClose }) {
   const [isLoading, setIsLoading] = useState(false);
   const [windowSize, setWindowSize] = useState({ width: 0, height: 0 });
   const [isFullscreen, setIsFullscreen] = useState(false);
+  const [zoom, setZoom] = useState(1);
 
   const containerRef = useRef(null);
   const imageRef = useRef(null);
@@ -18,6 +19,7 @@ export default function Lightbox({ images = [], index = 0, onClose }) {
 
   const navigate = (dir) => {
     setIsLoading(true);
+    setZoom(1);
     setCurrentIndex((i) =>
       dir === "next"
         ? (i + 1) % images.length
@@ -44,14 +46,21 @@ export default function Lightbox({ images = [], index = 0, onClose }) {
     if (document.fullscreenElement) document.exitFullscreen();
   };
 
+  const handleWheel = (e) => {
+    if (!isFullscreen) return;
+    e.preventDefault();
+    const delta = -e.deltaY * 0.005;
+    setZoom((z) => Math.min(Math.max(z + delta, 1), 3));
+  };
+
   useEffect(() => {
     const onFullscreenChange = () => {
       setIsFullscreen(!!document.fullscreenElement);
+      if (!document.fullscreenElement) setZoom(1);
     };
     document.addEventListener("fullscreenchange", onFullscreenChange);
-    return () => {
+    return () =>
       document.removeEventListener("fullscreenchange", onFullscreenChange);
-    };
   }, []);
 
   useEffect(() => {
@@ -110,7 +119,15 @@ export default function Lightbox({ images = [], index = 0, onClose }) {
       role="dialog"
       aria-modal="true"
       aria-label="Image lightbox"
+      aria-describedby="lightbox-description"
     >
+      {/* Screen reader description */}
+      <p id="lightbox-description" className="sr-only">
+        Use arrow keys to navigate images. Press Escape to close. Scroll to zoom
+        when in fullscreen.
+      </p>
+
+      {/* Top bar */}
       <div className="w-full px-4 pt-4 pb-2 flex justify-between items-center">
         <div className="text-white/80 text-sm tracking-widest">
           {currentIndex + 1} / {images.length}
@@ -118,7 +135,6 @@ export default function Lightbox({ images = [], index = 0, onClose }) {
         <div className="flex items-center gap-3">
           <button
             onClick={handleFullscreen}
-            title="Fullscreen"
             className="text-white/80 hover:text-white p-2 rounded-full hover:bg-white/10 transition-colors"
             aria-label="Fullscreen image"
           >
@@ -126,7 +142,6 @@ export default function Lightbox({ images = [], index = 0, onClose }) {
           </button>
           <button
             onClick={onClose}
-            title="Close"
             className="text-white/80 hover:text-white p-2 rounded-full hover:bg-white/10 transition-colors"
             aria-label="Close lightbox"
           >
@@ -135,9 +150,11 @@ export default function Lightbox({ images = [], index = 0, onClose }) {
         </div>
       </div>
 
+      {/* Image view */}
       <div
         {...swipeHandlers}
         className="w-full flex justify-center items-center flex-grow max-h-[calc(100vh-200px)] px-4"
+        onWheel={handleWheel}
       >
         <div
           ref={imageContainerRef}
@@ -146,7 +163,6 @@ export default function Lightbox({ images = [], index = 0, onClose }) {
           {isFullscreen && (
             <button
               onClick={handleExitFullscreen}
-              title="Exit Fullscreen"
               className="absolute top-4 right-4 z-50 text-white/90 hover:text-white bg-black/40 p-2 rounded-full backdrop-blur-sm transition"
               aria-label="Exit fullscreen"
             >
@@ -168,6 +184,10 @@ export default function Lightbox({ images = [], index = 0, onClose }) {
             height={1200}
             quality={85}
             className="max-w-full max-h-full object-contain rounded-md shadow-lg transition-opacity duration-200"
+            style={{
+              transform: `scale(${zoom})`,
+              transition: "transform 0.2s ease",
+            }}
             sizes="(max-width: 768px) 100vw, (max-width: 1024px) 90vw, 80vw"
             priority
             onLoad={() => setIsLoading(false)}
@@ -176,6 +196,7 @@ export default function Lightbox({ images = [], index = 0, onClose }) {
         </div>
       </div>
 
+      {/* Thumbnails */}
       {images.length > 1 && (
         <div className="w-full px-4 pb-4 overflow-x-auto no-scrollbar">
           <div className="flex gap-2 w-max min-w-full items-center justify-center">
@@ -189,8 +210,8 @@ export default function Lightbox({ images = [], index = 0, onClose }) {
                       ? "border-white shadow-md"
                       : "border-transparent hover:border-white/40"
                   }`}
-                  aria-label={`Go to image ${i + 1}`}
                   style={{ maxHeight: "96px", width: "auto" }}
+                  aria-label={`Go to image ${i + 1}`}
                 >
                   <Image
                     src={src}
@@ -206,6 +227,7 @@ export default function Lightbox({ images = [], index = 0, onClose }) {
         </div>
       )}
 
+      {/* Hide scrollbars */}
       <style jsx>{`
         .no-scrollbar::-webkit-scrollbar {
           display: none;
@@ -213,6 +235,17 @@ export default function Lightbox({ images = [], index = 0, onClose }) {
         .no-scrollbar {
           -ms-overflow-style: none;
           scrollbar-width: none;
+        }
+        .sr-only {
+          position: absolute;
+          width: 1px;
+          height: 1px;
+          padding: 0;
+          margin: -1px;
+          overflow: hidden;
+          clip: rect(0, 0, 0, 0);
+          white-space: nowrap;
+          border: 0;
         }
       `}</style>
     </div>
